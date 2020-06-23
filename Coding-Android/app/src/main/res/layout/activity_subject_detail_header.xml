@@ -1,0 +1,62 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/stand_bg"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingLeft="@dimen/padding_12"
+            android:paddingRight="@dimen/padding_12">
+
+            <TextView
+                android:id="@+id/subject_detail_join"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingTop="5dp"
+                android:text="热门参与者"
+                android:textColor="@color/font_1"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/subject_detail_view_all"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@id/subject_detail_join"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@id/subject_detail_join"
+                android:drawableRight="@drawable/user_home_arrow"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:text="查看全部"
+                android:textColor="@color/font_3"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <View
+            style="@style/DivideLine"
+            android:layout_marginLeft="@dimen/padding_12"
+            android:layout_marginRight="@dimen/padding_12">
+
+        </View>
+
+        <org.apmem.tools.layouts.FlowLayout xmlns:f="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/subject_detail_all_join"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp"
+            android:paddingLeft="5.33dp"
+            android:paddingRight="5.33dp"
+            android:paddingTop="16dp"
+            f:layout_newLine="false"
+            f:weightDefault="1.0" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="165dp"
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/pointAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/padding_12"
+        android:layout_marginTop="35dp"
+        android:textColor="@color/font_green"
+        android:textSize="40sp"
+        tools:text="88.35" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="5dp"
+        android:text="码币余额"
+        android:textColor="@color/font_3"
+        android:textSize="14sp" />
+
+    <include layout="@layout/divide_middle_15" />
+
+</LinearLayout>

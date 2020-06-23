@@ -1,0 +1,106 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/divide">
+
+    <LinearLayout
+        android:id="@+id/rootLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <include layout="@layout/view_user_info" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/stand_bg"
+            android:orientation="vertical">
+
+            <net.coding.program.common.widget.ListItem1
+                android:id="@+id/clickProject"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                app:itemIcon="@drawable/user_home_project"
+                app:itemShowArrow="false"
+                app:itemTitle="TA的项目" />
+
+            <include layout="@layout/divideline_15" />
+
+            <net.coding.program.common.widget.ListItem1
+                android:id="@+id/clickMaopao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                app:itemIcon="@drawable/user_home_maopao"
+                app:itemShowArrow="false"
+                app:itemTitle="TA的冒泡" />
+
+            <include layout="@layout/divideline_15" />
+
+            <net.coding.program.common.widget.ListItem1
+                android:id="@+id/clickTopic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                app:itemIcon="@drawable/user_home_topic"
+                app:itemShowArrow="false"
+                app:itemTitle="TA的话题" />
+
+            <include
+                android:id="@+id/divideLocal"
+                layout="@layout/divideline_15" />
+
+            <net.coding.program.common.widget.ListItem1
+                android:id="@+id/clickLocal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                app:itemIcon="@drawable/user_home_local"
+                app:itemTitle="本地文件" />
+
+            <include
+                android:id="@+id/pointDivide"
+                layout="@layout/divide_bottom_15"
+                android:visibility="gone" />
+
+            <net.coding.program.common.widget.ListItem1
+                android:id="@+id/clickPointRecord"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:visibility="gone"
+                app:itemIcon="@drawable/user_home_points"
+                app:itemTitle="我的码币" />
+
+        </LinearLayout>
+
+        <include layout="@layout/divide_bottom_15" />
+
+        <RelativeLayout
+            android:id="@+id/sendMessageLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/divide"
+            android:paddingBottom="15dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/sendMessage"
+                android:layout_width="match_parent"
+                android:layout_height="47dp"
+                android:background="@drawable/button_round_green"
+                android:gravity="center"
+                android:text="发消息"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</ScrollView>

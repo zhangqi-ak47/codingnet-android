@@ -1,0 +1,49 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:orientation="vertical"
+    tools:context="net.coding.program.project.detail.AttachmentsPhotoDetailActivity">
+
+    <include layout="@layout/common_actionbar" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <include
+            android:id="@+id/imageView"
+            layout="@layout/imageview_touch" />
+
+        <include
+            android:id="@+id/blankLayout"
+            layout="@layout/view_exception"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/bottomPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/common_image_download"
+            android:visibility="visible" />
+
+        <net.coding.program.common.widget.BottomToolBar
+            android:id="@+id/bottomToolBar"
+            style="@style/BottomToolBar"
+            android:layout_height="@dimen/bottom_layout_high"
+            app:btb_shadow="false"
+            app:btb_xml="@xml/bottomtoolbar_file_detail" />
+
+    </LinearLayout>
+
+</LinearLayout>

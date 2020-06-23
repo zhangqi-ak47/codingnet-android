@@ -1,0 +1,19 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/stand_bg"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/edit"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:background="@color/transparent"
+        android:gravity="start"
+        android:minHeight="600dp" />
+
+    <include layout="@layout/md_edit_bar" />
+
+</LinearLayout>

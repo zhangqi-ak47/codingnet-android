@@ -1,0 +1,92 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/divide"
+    android:orientation="vertical"
+    tools:context="net.coding.program.project.detail.file.ShareFileLinkActivity">
+
+    <include layout="@layout/divide_top_15" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_12"
+        android:text="该链接适用于所有人，无需登录。"
+        android:textColor="@color/font_3"
+        android:textSize="15sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/list_item_selector"
+        android:minHeight="50dp"
+        android:paddingLeft="@dimen/padding_12"
+        android:paddingRight="@dimen/padding_12">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="共享链接"
+            android:textColor="@color/font_1"
+            android:textSize="15sp" />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/clickSettingShare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            app:theme="@style/Widget_Switch"
+            android:buttonTint="@color/font_green"
+            app:colorControlActivated="@color/font_green" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutShareLink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/list_item_selector"
+        android:minHeight="50dp"
+        android:paddingLeft="@dimen/padding_12"
+        android:paddingRight="@dimen/padding_12">
+
+        <include layout="@layout/divide_line_1" />
+
+        <TextView
+            android:id="@+id/linkContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="60dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="linkContent"
+            android:textColor="@color/font_1"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/clickShareLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/round_rect_shape_green2"
+            android:button="@null"
+            android:paddingBottom="6dp"
+            android:paddingLeft="9dp"
+            android:paddingRight="9dp"
+            android:paddingTop="6dp"
+            android:text="拷贝"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+
+
+    <include layout="@layout/divide_bottom_15" />
+
+</LinearLayout>

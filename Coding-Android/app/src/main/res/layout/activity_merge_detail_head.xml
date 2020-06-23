@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/stand_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="@dimen/padding_15"
+            android:layout_marginRight="@dimen/padding_15"
+            android:layout_marginTop="12dp"
+            android:maxLines="2"
+            android:text="Medium Text"
+            android:textColor="@color/font_1"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:layout_marginLeft="@dimen/padding_15"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="0dp"
+            android:textColor="@color/font_3"
+            android:textSize="12sp"
+            tools:text="Samall Text" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/userName"
+            android:layout_marginBottom="1dp"
+
+            android:layout_toRightOf="@+id/userName"
+            android:text="Small Text"
+            android:textColor="@color/font_3"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/mergeStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/userName"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/padding_15"
+            android:textSize="12sp"
+            tools:text="已拒绝" />
+
+    </RelativeLayout>
+
+    <include layout="@layout/divideline_15" />
+
+    <include layout="@layout/layout_merge_flowlayout_in_listview" />
+
+    <LinearLayout
+        android:id="@+id/mergeTreate"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="@dimen/padding_12"
+        android:layout_marginLeft="@dimen/padding_15"
+        android:layout_marginRight="@dimen/padding_15"
+        android:gravity="center_vertical">
+
+        <View
+            android:id="@+id/mergeIcon0"
+            android:layout_width="3dp"
+            android:layout_height="match_parent"
+            android:background="@color/font_red" />
+
+        <View
+            android:id="@+id/mergeIcon1"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginLeft="@dimen/padding_10"
+            android:layout_marginRight="@dimen/padding_10"
+            android:background="@drawable/ic_listitem_merge_refuse" />
+
+        <TextView
+            android:id="@+id/mergeActionUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="jeff"
+            android:textColor="@color/font_1"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/mergeLog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 1天前 拒绝了这个合并请求"
+            android:textColor="@color/font_2"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <WebView
+        android:id="@+id/comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/padding_15"
+        android:layout_marginLeft="@dimen/padding_15"
+        android:layout_marginRight="@dimen/padding_15"
+        android:background="@color/transparent" />
+
+    <include layout="@layout/divide_middle_15" />
+
+    <net.coding.program.common.widget.ListItem1
+        android:id="@+id/itemCommit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        app:itemIcon="@drawable/project_button_icon_dynamic"
+        app:itemShowArrow="false"
+        app:itemTitle="提交记录" />
+
+    <net.coding.program.common.widget.ListItem1
+        android:id="@+id/itemFile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        app:itemIcon="@drawable/project_button_icon_readme"
+        app:itemShowArrow="false"
+        app:itemShowTopLine="true"
+        app:itemTitle="文件改动" />
+
+    <net.coding.program.common.widget.ListItem1
+        android:id="@+id/itemRefResource"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemIcon="@drawable/ic_task_ref_resource"
+        app:itemShowArrow="false"
+        app:itemShowTopLine="true"
+        app:itemTitle="关联资源" />
+
+    <include layout="@layout/divide_middle_15" />
+
+    <LinearLayout
+        android:id="@+id/reviewer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <net.coding.program.common.widget.ListItem1
+            android:id="@+id/itemReviewer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:itemIcon="@drawable/maopao_extra_comment"
+            app:itemShowArrow="false"
+            app:itemTitle="评审者" />
+
+        <View
+            android:id="@+id/reviewer_divide"
+            style="@style/DivideLine"
+            android:layout_marginLeft="@dimen/project_content_left_merge"
+            android:visibility="invisible" />
+
+        <LinearLayout
+            android:id="@+id/reviewers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_12"
+            android:layout_marginLeft="@dimen/project_content_left_merge"
+            android:layout_marginRight="@dimen/padding_15"
+            android:layout_marginTop="@dimen/padding_12"
+            android:orientation="horizontal"
+            android:visibility="gone" />
+
+        <include layout="@layout/divide_middle_15" />
+    </LinearLayout>
+
+
+</LinearLayout>
