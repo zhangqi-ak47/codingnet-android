@@ -38,7 +38,7 @@
         android:lines="1"
         android:textColor="@color/font_3"
         android:textSize="12sp"
-        tools:text="3分钟前" />
+        android:text="3分钟前" />
 
     <com.readystatesoftware.viewbadger.BadgeView
         android:id="@+id/badge"
@@ -66,7 +66,7 @@
         android:scrollHorizontally="true"
         android:textColor="@color/font_3"
         android:textSize="15sp"
-        tools:text="[语音]" />
+        android:text="[语音]" />
 
     <View
         style="@style/DivideLine"

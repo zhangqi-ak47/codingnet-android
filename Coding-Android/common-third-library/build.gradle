@@ -113,6 +113,7 @@ dependencies {
 
     // rx 方式请求权限
     api 'com.github.tbruyelle:rxpermissions:0.10.1'
+
 }
 
 

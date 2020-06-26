@@ -104,7 +104,9 @@ class MainProjectFragment : BaseFragment() {
         val newVersion = share.getInt("NewAppVersion", 0)
 
         if (versionCode < newVersion) {
-            topTip.visibility = View.VISIBLE
+            //测试
+            topTip.visibility = View.GONE
+//            topTip.visibility = View.VISIBLE
             closeTipButton.setOnClickListener { topTip.visibility = View.GONE }
             topTipText.setText(R.string.tip_update_app)
             topTip.setOnClickListener { Global.updateByMarket(activity) }
@@ -114,7 +116,9 @@ class MainProjectFragment : BaseFragment() {
     }
 
     private fun soldOutTip() {
-        topTip.visibility = View.VISIBLE
+        //测试
+        topTip.visibility = View.GONE
+//        topTip.visibility = View.VISIBLE
         closeTipButton.setOnClickListener { topTip.visibility = View.GONE }
         topTipText.setText(R.string.sold_out_app)
         topTip.setOnClickListener { Global.updateByMarket(activity) }

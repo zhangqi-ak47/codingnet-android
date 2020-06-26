@@ -43,6 +43,10 @@ public class Maopao {
         public String raw = "";
         public ArrayList<Like_user> reward_users = new ArrayList<>();
 
+        //测试
+        public MaopaoObject() {
+        }
+
         public MaopaoObject(JSONObject json) throws JSONException {
             activity_id = json.optString("activity_id");
 

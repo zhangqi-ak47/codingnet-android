@@ -19,14 +19,15 @@ public class BaseHttpResult implements Serializable {
     public int code;
     @SerializedName("msg")
     @Expose
-    public Map<String, String> msg;
+//    public Map<String, String> msg;
+    public String msg;
 
     public String getErrorMessage() {
-        if (msg != null && msg.size() > 0) {
-            return msg.values().iterator().next();
-        } else {
+//        if (msg != null && msg.size() > 0) {
+//            return msg.values().iterator().next();
+//        } else {
             return "未知错误";
-        }
+//        }
     }
 
 }

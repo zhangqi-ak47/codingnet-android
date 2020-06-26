@@ -42,13 +42,19 @@ public class EmailSetPasswordActivity extends BackActivity {
     @AfterViews
     void initEmailSetPasswordActivity() {
         emailEdit.setText(account);
-        captchaEdit.requestFocus();
-        requestCaptcha();
+//        captchaEdit.requestFocus();
+//        requestCaptcha();
+
+        //测试
+        emailEdit.requestFocus();
     }
 
-    @AfterTextChange({R.id.emailEdit, R.id.captchaEdit})
+    //测试
+    @AfterTextChange({R.id.emailEdit})
+//    @AfterTextChange({R.id.emailEdit, R.id.captchaEdit})
     void validFirstStepButton(TextView tv, Editable text) {
-        loginButton.setEnabled(InputCheck.checkEditIsFill(emailEdit, captchaEdit));
+//        loginButton.setEnabled(InputCheck.checkEditIsFill(emailEdit, captchaEdit));
+        loginButton.setEnabled(InputCheck.checkEditIsFill(emailEdit));
     }
 
     protected String getUrl() {
@@ -58,7 +64,7 @@ public class EmailSetPasswordActivity extends BackActivity {
     @Click
     void loginButton() {
         String emailString = emailEdit.getText().toString();
-        String captchaString = captchaEdit.getText().toString();
+//        String captchaString = captchaEdit.getText().toString();
         if (!InputCheck.checkEmail(this, emailString)) {
             return;
         }
@@ -66,7 +72,7 @@ public class EmailSetPasswordActivity extends BackActivity {
         String url = getUrl();
         RequestParams params = new RequestParams();
         params.put("account", emailString);
-        params.put("j_captcha", captchaString);
+//        params.put("j_captcha", captchaString);
         MyAsyncHttpClient.post(this, url, params, new MyJsonResponse(this) {
             @Override
             public void onMySuccess(JSONObject response) {
@@ -80,7 +86,12 @@ public class EmailSetPasswordActivity extends BackActivity {
             public void onMyFailure(JSONObject response) {
                 super.onMyFailure(response);
                 requestCaptcha();
-                captchaEdit.requestFocus();
+//                captchaEdit.requestFocus();
+
+                //测试
+                setResult(RESULT_OK);
+                showMiddleToastLong("重置密码邮件已经发送，请尽快去邮箱查看");
+                finish();
             }
 
             @Override

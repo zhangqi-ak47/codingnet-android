@@ -23,7 +23,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <include layout="@layout/login_baselayout_title" />
+                <include
+                    android:visibility="gone"
+                    layout="@layout/login_baselayout_title" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -71,6 +73,8 @@
                     android:id="@+id/textClause"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     android:layout_marginLeft="@dimen/padding_15"
                     android:layout_marginRight="@dimen/padding_15"
                     android:gravity="center_horizontal"
@@ -84,6 +88,8 @@
                 android:id="@+id/otherRegister"
                 android:layout_width="80dp"
                 android:layout_height="50dp"
+                android:visibility="gone"
+                tools:visibility="visible"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="21dp"

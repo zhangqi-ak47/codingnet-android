@@ -40,6 +40,8 @@
                         android:id="@+id/loginClose2FA"
                         android:layout_width="wrap_content"
                         android:layout_height="56dp"
+                        android:visibility="invisible"
+                        tools:visibility="visible"
                         android:layout_gravity="center_vertical|right"
                         android:layout_marginRight="15dp"
                         android:gravity="center"
@@ -62,8 +64,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="56dp"
                         android:layout_gravity="right"
+                        android:visibility="invisible"
                         android:gravity="center"
                         android:text="@string/title_activity_login2_fatip"
+                        tools:visibility="visible"
                         android:textColor="@color/font_green"
                         android:textSize="15sp" />
 
@@ -86,9 +90,10 @@
                         <net.coding.program.common.widget.LoginAutoCompleteEdit
                             android:id="@+id/editName"
                             style="@style/EditLogin"
-                            android:hint="用户名/手机/邮箱"
+                            android:hint="邮箱"
                             android:inputType="textEmailAddress"
                             app:darkness="true" />
+<!--                        android:hint="用户名/手机/邮箱"-->
 
                         <net.coding.program.common.LoginEditText
                             android:id="@+id/editPassword"
@@ -181,6 +186,8 @@
                         android:id="@+id/loginWeixin"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
+                        android:visibility="invisible"
+                        tools:visibility="visible"
                         android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center"

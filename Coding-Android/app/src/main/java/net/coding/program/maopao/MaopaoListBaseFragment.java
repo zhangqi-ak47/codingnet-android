@@ -442,6 +442,11 @@ public abstract class MaopaoListBaseFragment extends BaseFragment implements Sta
         initMaopaoType();
         myImageGetter = new MyImageGetter(getActivity());
 
+        //测试
+        mData.add(new Maopao.MaopaoObject());
+        mData.add(new Maopao.MaopaoObject());
+        mData.add(new Maopao.MaopaoObject());
+
 //        listView.setLoadMoreView(R.layout.listview_foot);
         mAdapter = new MyAdapter(mData, getShowAnimator());
 //        mFootUpdate.initToRecycler(listView, mInflater, this);
@@ -875,7 +880,8 @@ public abstract class MaopaoListBaseFragment extends BaseFragment implements Sta
         protected void withBindHolder(MyHolder holderLayout, Maopao.MaopaoObject data, int position) {
             ViewHolder holder = holderLayout.holder;
 
-            if (mType != null && mType == MaopaoListFragment.Type.user && position == 0) {
+            //测试
+            /*if (mType != null && mType == MaopaoListFragment.Type.user && position == 0) {
                 holder.divider.setVisibility(View.GONE);
             } else {
                 holder.divider.setVisibility(View.VISIBLE);
@@ -1006,7 +1012,7 @@ public abstract class MaopaoListBaseFragment extends BaseFragment implements Sta
             }
             if (commentsId.length < data.comments) { // 评论数超过5时
                 holder.divides[commentsId.length - 1].setVisibility(View.VISIBLE);
-            }
+            }*/
 
 //            if (showAnimator) {
 //                if (position > mLastPosition) {

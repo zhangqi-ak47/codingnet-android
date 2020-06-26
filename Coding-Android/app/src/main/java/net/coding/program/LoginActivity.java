@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -15,6 +16,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.SPUtils;
+import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -25,25 +28,24 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import net.coding.program.common.Global;
 import net.coding.program.common.GlobalCommon;
-import net.coding.program.common.GlobalData;
-import net.coding.program.common.SimpleSHA1;
 import net.coding.program.common.event.EventLoginSuccess;
 import net.coding.program.common.model.AccountInfo;
 import net.coding.program.common.model.UserObject;
+import net.coding.program.common.model.entity.UserInfoObject;
 import net.coding.program.common.network.MyAsyncHttpClient;
 import net.coding.program.common.network.NetworkImpl;
 import net.coding.program.common.ui.BaseActivity;
-import net.coding.program.common.umeng.UmengEvent;
-import net.coding.program.common.util.InputCheck;
 import net.coding.program.common.widget.LoginAutoCompleteEdit;
 import net.coding.program.common.widget.input.SimpleTextWatcher;
 import net.coding.program.compatible.CodingCompat;
-import net.coding.program.login.PhoneRegisterActivity_;
+import net.coding.program.login.EmailRegisterActivity_;
 import net.coding.program.login.auth.AuthInfo;
 import net.coding.program.login.auth.TotpClock;
 import net.coding.program.login.phone.Close2FAActivity_;
-import net.coding.program.login.phone.PhoneSetPasswordActivity_;
+import net.coding.program.login.phone.EmailSetPasswordActivity_;
 import net.coding.program.maopao.share.CustomShareBoard;
+import net.coding.program.network.HttpObserver;
+import net.coding.program.network.Network;
 import net.coding.program.thirdplatform.ThirdPlatformLogin;
 
 import org.androidannotations.annotations.AfterViews;
@@ -56,9 +58,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Map;
 
 import cz.msebera.android.httpclient.Header;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
+import rx.schedulers.Schedulers;
 
 @EActivity(R.layout.activity_login)
 public class LoginActivity extends BaseActivity {
@@ -195,7 +201,11 @@ public class LoginActivity extends BaseActivity {
     @Click
     void register() {
         Global.popSoftkeyboard(this, editName, false);
-        PhoneRegisterActivity_.intent(this).start();
+//        PhoneRegisterActivity_.intent(this).start();
+
+        //测试
+        EmailRegisterActivity_.intent(this).start();
+
     }
 
     @OnActivityResult(RESULT_CLOSE_2FA)
@@ -213,7 +223,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void needCaptcha() {
-        getNetwork(HOST_NEED_CAPTCHA, HOST_NEED_CAPTCHA);
+//        getNetwork(HOST_NEED_CAPTCHA, HOST_NEED_CAPTCHA);
     }
 
     private void downloadValifyPhoto() {
@@ -236,11 +246,14 @@ public class LoginActivity extends BaseActivity {
 
     @Click
     protected final void loginButton() {
-        if (layout2fa.getVisibility() == View.GONE) {
-            login();
-        } else {
-            login2fa();
-        }
+        //测试
+        login();
+
+//        if (layout2fa.getVisibility() == View.GONE) {
+//            login();
+//        } else {
+//            login2fa();
+//        }
     }
 
     private void login2fa() {
@@ -262,7 +275,7 @@ public class LoginActivity extends BaseActivity {
         try {
             String name = editName.getText().toString();
             String password = editPassword.getText().toString();
-            String captcha = editValify.getText().toString();
+//            String captcha = editValify.getText().toString();
 
             if (name.isEmpty()) {
                 showMiddleToast("邮箱或用户名不能为空");
@@ -274,22 +287,67 @@ public class LoginActivity extends BaseActivity {
                 return;
             }
 
-            RequestParams params = new RequestParams();
+            Map<String, String> map= new HashMap<>();
 
-            params.put("password", SimpleSHA1.sha1(password));
-            if (captchaLayout.getVisibility() == View.VISIBLE) {
-                params.put("j_captcha", captcha);
-            }
-            params.put("remember_me", true);
+            map.put("mobile", name);
+//            map.put("password", SimpleSHA1.sha1(password));
+            map.put("password", password);
 
-            Global.display(this);
+            Network.getRetrofitApp(this)
+                    .login(map)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnSubscribe(new Action0() {
+                        @Override
+                        public void call() {
+                            showLoadingBar();
+                        }
+                    })
+                    .doAfterTerminate(new Action0() {
+                        @Override
+                        public void call() {
+                            hideLoadingBar();
+                        }
+                    })
+                    .subscribe(new HttpObserver<UserInfoObject>(this) {
+                        @Override
+                        public void onSuccess(UserInfoObject data) {
+                            super.onSuccess(data);
+                            SPUtils.getInstance(Global.APPPACKAGE).put("is_login", true);
+                            SPUtils.getInstance(Global.USERPACKAGE).put("UserInfoEntity", new Gson().toJson(data));
+                            SPUtils.getInstance(Global.USERPACKAGE).put("token", data.getToken());
+
+                            startActivity(new Intent(LoginActivity.this, CodingCompat.instance().getMainActivity()));
+                            overridePendingTransition(R.anim.entrance_fade_in, R.anim.entrance_fade_out);
+                            finish();
+
+                        }
+
+                        @Override
+                        public void onFail(int errorCode, @NonNull String error) {
+                            super.onFail(errorCode, error);
+                        }
+
+                    });
 
 
-            String HOST_LOGIN = Global.HOST_API + "/v2/account/login";
-            params.put("account", name);
 
-            postNetwork(HOST_LOGIN, params, TAG_LOGIN);
-            showProgressBar(true, R.string.logining);
+//            RequestParams params = new RequestParams();
+//
+//            params.put("password", SimpleSHA1.sha1(password));
+//            if (captchaLayout.getVisibility() == View.VISIBLE) {
+//                params.put("j_captcha", captcha);
+//            }
+//            params.put("remember_me", true);
+//
+//            Global.display(this);
+//
+//
+//            String HOST_LOGIN = Global.HOST_API + "/v2/account/login";
+//            params.put("account", name);
+//
+//            postNetwork(HOST_LOGIN, params, TAG_LOGIN);
+//            showProgressBar(true, R.string.logining);
 
             Global.popSoftkeyboard(this, editName, false);
 
@@ -301,13 +359,19 @@ public class LoginActivity extends BaseActivity {
     @Click
     protected final void loginFail() {
         String account = editName.getText().toString();
-        if (!InputCheck.isPhone(account)) {
-            account = "";
-        }
+//        if (!InputCheck.isPhone(account)) {
+//            account = "";
+//        }
+//
+//        PhoneSetPasswordActivity_.intent(this)
+//                .account(account)
+//                .start();
 
-        PhoneSetPasswordActivity_.intent(this)
+        //测试
+        int RESULT_RESET_BY_EMAIL = 11;
+        EmailSetPasswordActivity_.intent(this)
                 .account(account)
-                .start();
+                .startForResult(RESULT_RESET_BY_EMAIL);
     }
 
     @Click
@@ -352,7 +416,14 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void parseJson(int code, JSONObject respanse, String tag, int pos, Object data) throws JSONException {
-        if (tag.equals(TAG_LOGIN)) {
+        //测试
+        showProgressBar(false);
+        startActivity(new Intent(LoginActivity.this, CodingCompat.instance().getMainActivity()));
+        finish();
+
+        overridePendingTransition(R.anim.entrance_fade_in, R.anim.entrance_fade_out);
+
+        /*if (tag.equals(TAG_LOGIN)) {
             if (code == 0) {
                 MainActivity.setNeedWarnEmailNoValidLogin();
                 loginSuccess(respanse);
@@ -410,7 +481,7 @@ public class LoginActivity extends BaseActivity {
             } else {
                 showErrorMsg(code, respanse);
             }
-        }
+        }*/
     }
 
     private void loginFail(int code, JSONObject respanse, boolean needCaptcha) {

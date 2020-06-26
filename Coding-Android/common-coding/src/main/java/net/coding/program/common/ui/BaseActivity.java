@@ -54,6 +54,9 @@ public class BaseActivity extends UmengActivity implements NetworkCallback, Star
      */
     private DialogUtil.LoadingPopupWindow mDialogProgressPopWindow = null;
 
+    //loading 计数
+    private int loadingCount;
+
     protected void listViewAddFootSection(ListView listView) {
         View listViewFooter = getLayoutInflater().inflate(R.layout.divide_bottom_15, listView, false);
         listView.addFooterView(listViewFooter, null, false);
@@ -73,6 +76,23 @@ public class BaseActivity extends UmengActivity implements NetworkCallback, Star
         return (v, hasFocus) -> {
             line.setBackgroundColor(hasFocus ? selectColor : CodingColor.divideLine);
         };
+    }
+
+    public void showLoadingBar() {
+        loadingCount++;
+        if (!mProgressDialog.isShowing()) {
+            mProgressDialog.setCancelable(isProgressCannCancel());
+            mProgressDialog.setCanceledOnTouchOutside(false);
+            mProgressDialog.setMessage("正在加载中...");
+            mProgressDialog.show();
+        }
+    }
+
+    public void hideLoadingBar() {
+        loadingCount--;
+        if (mProgressDialog.isShowing() && loadingCount==0) {
+            mProgressDialog.hide();
+        }
     }
 
     protected void showProgressBar(boolean show) {
@@ -155,6 +175,7 @@ public class BaseActivity extends UmengActivity implements NetworkCallback, Star
         super.onCreate(savedInstanceState);
 
         mSingleToast = new SingleToast(this);
+        loadingCount=0;
 
         networkImpl = new NetworkImpl(this, this);
 
@@ -411,7 +432,6 @@ public class BaseActivity extends UmengActivity implements NetworkCallback, Star
             DialogUtil.hideDialog(mDialogProgressPopWindow);
         }
     }
-
 
 
 }

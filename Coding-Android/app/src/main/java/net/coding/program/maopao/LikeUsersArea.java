@@ -37,6 +37,9 @@ public class LikeUsersArea extends BaseUsersArea {
     public void displayLikeUser() {
         Maopao.MaopaoObject maopaoData = (Maopao.MaopaoObject) likeUsersLayout.getTag(MaopaoListBaseFragment.TAG_MAOPAO);
 
+        //测试
+        if (maopaoData==null) return;
+
         if ((maopaoData.likes + maopaoData.rewards) == 0) {
             likeUsersAllLayout.setVisibility(View.GONE);
         } else {

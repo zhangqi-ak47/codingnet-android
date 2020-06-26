@@ -2,11 +2,10 @@ package net.coding.program.project;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.TypedValue;
-import android.view.Menu;
-import android.view.MenuInflater;
 
 import net.coding.program.R;
 import net.coding.program.common.Global;
@@ -15,8 +14,13 @@ import net.coding.program.common.event.EventPosition;
 import net.coding.program.common.event.EventRefresh;
 import net.coding.program.common.model.AccountInfo;
 import net.coding.program.common.model.ProjectObject;
+import net.coding.program.common.model.entity.ProjectOwnerVo;
+import net.coding.program.common.model.form.ProjectForm;
+import net.coding.program.common.model.util.PageUtils;
 import net.coding.program.common.ui.BaseFragment;
 import net.coding.program.common.widget.NoHorizontalScrollViewPager;
+import net.coding.program.network.HttpObserver;
+import net.coding.program.network.Network;
 import net.coding.program.search.SearchProjectActivity_;
 
 import org.androidannotations.annotations.AfterViews;
@@ -33,6 +37,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
+import rx.schedulers.Schedulers;
 
 @EFragment(R.layout.fragment_project)
 public class ProjectFragment extends BaseFragment implements ViewPager.OnPageChangeListener,
@@ -130,7 +138,40 @@ public class ProjectFragment extends BaseFragment implements ViewPager.OnPageCha
 
     @Override
     public void onRefresh() {
-        getNetwork(host, host);
+        //测试
+//        getNetwork(host, host);
+        ProjectForm form=new ProjectForm();
+        form.setCurrPage(2);
+        form.setPageSize(3);
+        Network.getRetrofitApp(getContext())
+                .queryProjectData(form)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        showLoadingBar();
+                    }
+                })
+                .doAfterTerminate(new Action0() {
+                    @Override
+                    public void call() {
+                        hideLoadingBar();
+                    }
+                })
+                .subscribe(new HttpObserver<PageUtils<ProjectOwnerVo>>(getContext()) {
+                    @Override
+                    public void onSuccess(PageUtils<ProjectOwnerVo> data) {
+                        super.onSuccess(data);
+
+                    }
+
+                    @Override
+                    public void onFail(int errorCode, @NonNull String error) {
+                        super.onFail(errorCode, error);
+                    }
+
+                });
     }
 
 //    @Override
@@ -172,6 +213,8 @@ public class ProjectFragment extends BaseFragment implements ViewPager.OnPageCha
 
     @Override
     public void parseJson(int code, JSONObject respanse, String tag, int pos, Object data) throws JSONException {
+        //测试
+
         if (tag.equals(host)) {
             if (code == 0) {
                 requestOk = true;

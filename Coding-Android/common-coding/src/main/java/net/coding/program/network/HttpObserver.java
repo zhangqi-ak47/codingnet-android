@@ -70,23 +70,25 @@ public abstract class HttpObserver<T1> implements Observer<HttpResult<T1>> {
     @Override
     public void onError(Throwable e) {
         try {
+            e.printStackTrace();
             String errorMsg = NetworkImpl.ERROR_MSG_CONNECT_FAIL;
-            if (e != null) {
-                StackTraceElement[] stackTrace = e.getStackTrace();
-                StringBuilder sb = new StringBuilder();
-                sb.append(e.getMessage());
-                sb.append("\n");
-                for (StackTraceElement item : stackTrace) {
-                    sb.append(item.toString());
-                    sb.append("\n");
-                }
-                Logger.e("", sb.toString());
-
-                String error = e.getMessage();
-                if (error != null && !error.isEmpty()) {
-                    errorMsg = error;
-                }
-            }
+            //测试
+//            if (e != null) {
+//                StackTraceElement[] stackTrace = e.getStackTrace();
+//                StringBuilder sb = new StringBuilder();
+//                sb.append(e.getMessage());
+//                sb.append("\n");
+//                for (StackTraceElement item : stackTrace) {
+//                    sb.append(item.toString());
+//                    sb.append("\n");
+//                }
+//                Logger.e("", sb.toString());
+//
+//                String error = e.getMessage();
+//                if (error != null && !error.isEmpty()) {
+//                    errorMsg = error;
+//                }
+//            }
             onFail(NetworkImpl.NETWORK_CONNECT_FAIL, errorMsg);
         } catch (Exception exception) {
             Global.errorLog(exception);
@@ -102,12 +104,13 @@ public abstract class HttpObserver<T1> implements Observer<HttpResult<T1>> {
             }
 
             if (t1HttpResult.code != 0) {
-                String showErrorMessage = "未知错误";
-                Map errorMessage = t1HttpResult.msg;
-                if (errorMessage != null) {
-                    showErrorMessage = (String) errorMessage.values().iterator().next();
-                }
-                onFail(t1HttpResult.code, showErrorMessage);
+//                String showErrorMessage = "未知错误";
+//                Map errorMessage = t1HttpResult.msg;
+//                if (errorMessage != null) {
+//                    showErrorMessage = (String) errorMessage.values().iterator().next();
+//                }
+//                onFail(t1HttpResult.code, showErrorMessage);
+                onFail(t1HttpResult.code, t1HttpResult.msg);
                 if (listView != null) {
                     listView.update(mActivity, CommonListView.Style.fail);
                     listView.setRefreshing(false);

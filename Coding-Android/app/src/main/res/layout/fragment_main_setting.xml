@@ -247,7 +247,7 @@
                 app:itemIcon="@mipmap/ic_setting_about"
                 app:itemShowArrow="false"
                 app:itemShowBottomLine="false"
-                app:itemTitle="关于 Coding" />
+                app:itemTitle="关于" />
 
             <include layout="@layout/divide_bottom_15" />
 

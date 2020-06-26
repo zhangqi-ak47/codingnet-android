@@ -82,6 +82,12 @@ public class TaskFragment extends TaskFilterFragment {
 
         getNetwork(host, host);
 
+        //测试
+        ProjectObject projectObject=new ProjectObject();
+        projectObject.name="测试";
+        mData.add(projectObject);
+        mData.add(projectObject);
+
         adapter = new PageTaskFragment(getChildFragmentManager());
         pager.setPageMargin(pageMargin);
         pager.setAdapter(adapter);
@@ -94,6 +100,10 @@ public class TaskFragment extends TaskFilterFragment {
 
         initFilterViews();
         showLoading(true);
+
+        //测试
+        tabs.setVisibility(View.VISIBLE);
+        tabs.setViewPager(pager);
     }
 
     @Override

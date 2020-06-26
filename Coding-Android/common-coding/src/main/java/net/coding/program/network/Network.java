@@ -2,6 +2,7 @@ package net.coding.program.network;
 
 import android.content.Context;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.loopj.android.http.PersistentCookieStore;
 
 import net.coding.program.common.Global;
@@ -32,6 +33,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Network {
 
     private static final int MAX_STALE = 60 * 60 * 24 * 28; // 无网络时，设置超时为4周
+
+    private static AppRequest appRequest;
+
+    public static AppRequest getRetrofitApp(Context context) {
+        if (appRequest == null) {
+            synchronized (Network.class) {
+                if (appRequest == null) {
+                    appRequest = getRetrofitApp(context, CacheType.noCache);
+                }
+            }
+        }
+        return appRequest;
+    }
 
     public static CodingRequest getRetrofit(Context context) {
         return getRetrofit(context, CacheType.noCache, null);
@@ -87,6 +101,32 @@ public class Network {
                 .build();
 
         return retrofit.create(UpQboxRequest.class);
+    }
+
+    public static AppRequest getRetrofitApp(Context context, CacheType cacheType) {
+        Interceptor interceptorCookie = chain -> {
+            Request request = chain.request();
+
+            request = request.newBuilder().addHeader("accept", "application/json").build();
+
+//            String url = request.url().toString();
+            Request.Builder builder = request.newBuilder()
+                    .addHeader("token", SPUtils.getInstance(Global.USERPACKAGE).getString("token"));
+            request = builder.build();
+
+            Response proceed = chain.proceed(request);
+
+            return proceed;
+        };
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Global.HOST_API + "/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(generateClient(context, interceptorCookie, cacheType, true))
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+
+        return retrofit.create(AppRequest.class);
     }
 
     public static CodingRequest getRetrofit(Context context, CacheType cacheType, CommonListView listView) {
@@ -262,4 +302,48 @@ public class Network {
         useCache, // 有网络就用网络取到的数据, 没有就用 cache
         onlyCache // 只使用 cache
     }
+
+    /*范例
+    Network.getRetrofitApp(this)
+                    .login(map)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doAfterTerminate(new Action0() {
+                        @Override
+                        public void call() {//最后调用
+                            System.out.println("doAfterTerminate");
+                        }
+                    })
+                    .finallyDo(new Action0() {
+                        @Override
+                        public void call() {//中途取消，最后调用
+                            System.out.println("finallyDo");
+                        }
+                    })
+                    .doOnCompleted(new Action0() {
+                        @Override
+                        public void call() {//成功才会调用
+                            System.out.println("doOnCompleted");
+                        }
+                    })
+                    .doOnSubscribe(new Action0() {
+                        @Override
+                        public void call() {//一开始调用
+                            System.out.println("doOnSubscribe");
+                        }
+                    })
+                    .subscribe(new HttpObserver<UserInfoEntity>(this) {
+                        @Override
+                        public void onSuccess(UserInfoEntity data) {
+                            super.onSuccess(data);
+
+                        }
+
+                        @Override
+                        public void onFail(int errorCode, @NonNull String error) {
+                            super.onFail(errorCode, error);
+                        }
+
+                    });
+    */
 }

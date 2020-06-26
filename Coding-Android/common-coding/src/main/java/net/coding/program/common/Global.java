@@ -63,9 +63,12 @@ import cz.msebera.android.httpclient.cookie.Cookie;
  */
 public class Global {
 
-    public static final String DEFAULT_HOST = "https://coding.net";
-    public static final String STAGING_HOST = "http://coding.codingprod.net";
-    public static final String TESTING_HOST = "http://coding.t.codingprod.net";
+//    public static final String DEFAULT_HOST = "https://coding.net";
+//    public static final String STAGING_HOST = "http://coding.codingprod.net";
+//    public static final String TESTING_HOST = "http://coding.t.codingprod.net";
+    public static final String DEFAULT_HOST = "http://192.168.188.174:8080/renren-fast";
+    public static final String STAGING_HOST = "http://baidu.com";
+    public static final String TESTING_HOST = "http://baidu.com";
 
     public static final SimpleDateFormat mDateFormat = new SimpleDateFormat("yyyy-MM-dd EEE");
     public static final SimpleDateFormat mDateYMDHH = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -84,7 +87,12 @@ public class Global {
     private static final int LOG_PREFIX_LENGTH = LOG_PREFIX.length();
     private static final int MAX_LOG_TAG_LENGTH = 23;
     public static String HOST = DEFAULT_HOST;
-    public static String HOST_API = HOST + "/api";
+    public static String HOST_API = HOST + "/app";
+
+
+    public static final String USERPACKAGE = "net.coding.program.user";
+    public static final String APPPACKAGE = "net.coding.program.app";
+
     /**
      * 语音文件存放目录
      */

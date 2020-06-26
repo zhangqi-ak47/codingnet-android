@@ -86,7 +86,7 @@ public class EmailRegisterActivity extends BackActivity {
 
         textClause.setText(PhoneRegisterActivity.REGIST_TIP);
 
-        needShowCaptch();
+//        needShowCaptch();
     }
 
     @Override
@@ -139,7 +139,11 @@ public class EmailRegisterActivity extends BackActivity {
             @Override
             public void onMyFailure(JSONObject response) {
                 super.onMyFailure(response);
-                needShowCaptch();
+//                needShowCaptch();
+
+                //测试
+                setResult(Activity.RESULT_OK);
+                finish();
             }
 
             @Override

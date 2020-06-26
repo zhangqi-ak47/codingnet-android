@@ -225,6 +225,14 @@ public class TaskListFragment extends RefreshBaseFragment {
 
         SingleTask.initDate();
 
+        //cs
+        mData.add(new SingleTask());
+        mData.add(new SingleTask());
+        mData.add(new SingleTask());
+        mData.add(new SingleTask());
+        mData.add(new SingleTask());
+
+
         mAdapter = new TestBaseAdapter();
 
         fab.attachToListView(listView.getWrappedList());
@@ -336,7 +344,8 @@ public class TaskListFragment extends RefreshBaseFragment {
 
             } else {
                 showErrorMsg(code, respanse);
-                BlankViewDisplay.setBlank(mData.size(), this, false, blankLayout, onClickRetry);
+                //测试
+//                BlankViewDisplay.setBlank(mData.size(), this, false, blankLayout, onClickRetry);
             }
 
             mUpdateAll = false;
@@ -510,7 +519,8 @@ public class TaskListFragment extends RefreshBaseFragment {
                 holder = (ViewHolder) convertView.getTag();
             }
 
-            final SingleTask data = (SingleTask) getItem(position);
+            //测试
+            /*final SingleTask data = (SingleTask) getItem(position);
             holder.mTitle.setText("      " + data.content);
             holder.mTitle.setTextColor(data.isDone() ? CodingColor.font4 : CodingColor.font1);
 
@@ -552,7 +562,7 @@ public class TaskListFragment extends RefreshBaseFragment {
                 loadData();
             } else {
                 holder.bottomLine.setVisibility(View.VISIBLE);
-            }
+            }*/
 
             return convertView;
         }

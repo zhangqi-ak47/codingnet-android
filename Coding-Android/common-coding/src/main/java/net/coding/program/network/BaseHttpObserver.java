@@ -94,12 +94,13 @@ public class BaseHttpObserver implements Observer<BaseHttpResult> {
             }
 
             if (t1HttpResult.code != 0) {
-                String showErrorMessage = "未知错误";
-                Map errorMessage = t1HttpResult.msg;
-                if (errorMessage != null) {
-                    showErrorMessage = (String) errorMessage.values().iterator().next();
-                }
-                onFail(t1HttpResult.code, showErrorMessage);
+//                String showErrorMessage = "未知错误";
+//                Map errorMessage = t1HttpResult.msg;
+//                if (errorMessage != null) {
+//                    showErrorMessage = (String) errorMessage.values().iterator().next();
+//                }
+//                onFail(t1HttpResult.code, showErrorMessage);
+                onFail(t1HttpResult.code, t1HttpResult.msg);
                 return;
             }
 

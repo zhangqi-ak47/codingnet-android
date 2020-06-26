@@ -307,7 +307,8 @@ public class ProjectListFragment extends RefreshBaseFragment implements View.OnC
                 holder = (ViewHolder) view.getTag();
             }
 
-            ProjectObject item = (ProjectObject) getItem(position);
+            //测试
+            /*ProjectObject item = (ProjectObject) getItem(position);
 
             holder.privatePin.setVisibility(item.isPin() ? View.VISIBLE : View.INVISIBLE);
             holder.privateIcon.setVisibility(!item.isShared() ? View.INVISIBLE : View.VISIBLE);
@@ -336,7 +337,7 @@ public class ProjectListFragment extends RefreshBaseFragment implements View.OnC
             } else {
                 holder.privatePin.setVisibility(View.INVISIBLE);
             }
-            iconfromNetwork(holder.image, item.icon, ImageLoadTool.optionsRounded2);
+            iconfromNetwork(holder.image, item.icon, ImageLoadTool.optionsRounded2);*/
 
             return view;
         }

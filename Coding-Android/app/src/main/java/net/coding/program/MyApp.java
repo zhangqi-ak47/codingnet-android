@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.mapapi.SDKInitializer;
+import com.blankj.utilcode.util.Utils;
 import com.liulishuo.filedownloader.FileDownloader;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -166,7 +167,7 @@ public class MyApp extends MultiDexApplication {
             host = Global.TESTING_HOST;
         }
         Global.HOST = host;
-        Global.HOST_API = Global.HOST + "/api";
+        Global.HOST_API = Global.HOST + "/app";
 
         try {
             Global.sVoiceDir = FileUtil.getDestinationInExternalFilesDir(this, Environment.DIRECTORY_MUSIC, FileUtil.getDownloadFolder()).getAbsolutePath();
@@ -190,6 +191,9 @@ public class MyApp extends MultiDexApplication {
         FileDownloader.init(this);
 
         initURLCallback();
+
+        //测试
+        Utils.init(this);
     }
 
     public void initGlobaData() {

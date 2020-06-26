@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.blankj.utilcode.util.SPUtils;
+
 import net.coding.program.common.Global;
 import net.coding.program.common.GlobalData;
 import net.coding.program.common.ImageLoadTool;
@@ -169,16 +171,23 @@ public class EntranceActivity extends BaseActivity {
         openNext = true;
 
         Intent intent;
-        String mGlobalKey = AccountInfo.loadAccount(this).global_key;
-        if (mGlobalKey.isEmpty()) {
-            intent = new Intent(this, LoginActivity_.class);
+        //测试
+        if (SPUtils.getInstance(Global.APPPACKAGE).getBoolean("is_login", false)) {
+            intent = new Intent(this, CodingCompat.instance().getMainActivity());
         } else {
-            if (AccountInfo.needDisplayGuide(this)) {
-                intent = new Intent(this, ZhongQiuGuideActivity.class);
-            } else {
-                intent = new Intent(this, CodingCompat.instance().getMainActivity());
-            }
+            intent = new Intent(this, LoginActivity_.class);
         }
+
+//        String mGlobalKey = AccountInfo.loadAccount(this).global_key;
+//        if (mGlobalKey.isEmpty()) {
+//            intent = new Intent(this, LoginActivity_.class);
+//        } else {
+//            if (AccountInfo.needDisplayGuide(this)) {
+//                intent = new Intent(this, ZhongQiuGuideActivity.class);
+//            } else {
+//                intent = new Intent(this, CodingCompat.instance().getMainActivity());
+//            }
+//        }
 
         startActivity(intent);
 

@@ -48,7 +48,17 @@ class MyProjectPagerAdapter extends FragmentStatePagerAdapter {
         fragment.setTitle(projectFragment.program_title[position]);
         Bundle bundle = new Bundle();
 
-        bundle.putSerializable("mData", getChildData(position));
+        //测试
+        ArrayList<ProjectObject> mData=new ArrayList<>();
+        mData.add(new ProjectObject());
+        mData.add(new ProjectObject());
+        mData.add(new ProjectObject());
+        mData.add(new ProjectObject());
+        mData.add(new ProjectObject());
+        mData.add(new ProjectObject());
+        bundle.putSerializable("mData", mData);
+
+//        bundle.putSerializable("mData", getChildData(position));
         bundle.putSerializable("type", projectFragment.type);
         fragment.setArguments(bundle);
 

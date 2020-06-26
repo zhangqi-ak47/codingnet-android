@@ -47,6 +47,7 @@
         android:background="@drawable/ic_share_project1"
         android:visibility="visible" />
 
+<!--    tools:text="Coding"-->
     <TextView
         android:id="@+id/name"
         android:layout_width="match_parent"
@@ -59,7 +60,7 @@
         android:lines="1"
         android:textColor="@color/font_1"
         android:textSize="16sp"
-        tools:text="Coding" />
+        android:text="Coding" />
 
     <TextView
         android:id="@+id/name2"
@@ -87,7 +88,7 @@
         android:layout_marginTop="10dp"
         android:ellipsize="end"
         android:lineSpacingMultiplier="1.5"
-        tools:text="神奇的项目"
+        android:text="神奇的项目"
         android:lines="1"
         android:textColor="@color/font_2"
         android:textSize="14sp" />
@@ -170,7 +171,7 @@
         android:layout_alignLeft="@id/privateIcon"
         android:layout_alignWithParentIfMissing="true"
         android:lines="1"
-        tools:text="summer"
+        android:text="summer"
         android:textColor="@color/font_3"
         android:textSize="12sp"
         android:layout_marginRight="50dp"
@@ -185,7 +186,7 @@
         android:layout_marginBottom="-15dp"
         android:paddingRight="15dp"
         tools:visibility="visible"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <ImageView
             android:layout_width="15dp"

@@ -67,6 +67,7 @@ public class UsersListFragment extends RefreshBaseFragment implements LoadMore, 
     View blankLayout;
 
     ArrayList<Message.MessageObject> mData = new ArrayList<>();
+
     BadgeView badgeSystem;
     boolean mUpdateAll = false;
     MyImageGetter myImageGetter;
@@ -104,30 +105,31 @@ public class UsersListFragment extends RefreshBaseFragment implements LoadMore, 
                 holder = (ViewHolder) convertView.getTag();
             }
 
-            Message.MessageObject user = (Message.MessageObject) getItem(position);
-            iconfromNetwork(holder.icon, user.friend.avatar);
-            holder.title.setText(user.friend.name);
-            boolean isUnPlayedVoiceMessage = !user.sender.isMe() && user.played == 0 && user.file != null && user.file.endsWith(".amr");
-
-            CharSequence contentString;
-            if (isUnPlayedVoiceMessage) {
-                contentString = Global.createGreenHtml("", user.content, "");
-            } else {
-                contentString = GlobalCommon.recentMessage(user.content, myImageGetter, Global.tagHandler);
-            }
-            holder.content.setText(contentString);
-            holder.time.setText(Global.dayToNow(user.created_at, false));
-
-            if (user.unreadCount > 0) {
-                UnreadNotify.displayNotify(holder.badge, Unread.countToString(user.unreadCount));
-                holder.badge.setVisibility(View.VISIBLE);
-            } else {
-                holder.badge.setVisibility(View.INVISIBLE);
-            }
-
-            if (position == (mData.size() - 1)) {
-                loadMore();
-            }
+//            测试
+//            Message.MessageObject user = (Message.MessageObject) getItem(position);
+//            iconfromNetwork(holder.icon, user.friend.avatar);
+//            holder.title.setText(user.friend.name);
+//            boolean isUnPlayedVoiceMessage = !user.sender.isMe() && user.played == 0 && user.file != null && user.file.endsWith(".amr");
+//
+//            CharSequence contentString;
+//            if (isUnPlayedVoiceMessage) {
+//                contentString = Global.createGreenHtml("", user.content, "");
+//            } else {
+//                contentString = GlobalCommon.recentMessage(user.content, myImageGetter, Global.tagHandler);
+//            }
+//            holder.content.setText(contentString);
+//            holder.time.setText(Global.dayToNow(user.created_at, false));
+//
+//            if (user.unreadCount > 0) {
+//                UnreadNotify.displayNotify(holder.badge, Unread.countToString(user.unreadCount));
+//                holder.badge.setVisibility(View.VISIBLE);
+//            } else {
+//                holder.badge.setVisibility(View.INVISIBLE);
+//            }
+//
+//            if (position == (mData.size() - 1)) {
+//                loadMore();
+//            }
 
             return convertView;
         }
@@ -167,6 +169,12 @@ public class UsersListFragment extends RefreshBaseFragment implements LoadMore, 
         myImageGetter = new MyImageGetter(getActivity());
         mData = AccountInfo.loadMessageUsers(getActivity());
         initHead();
+
+        //    测试
+        mData.add(new Message.MessageObject());
+        mData.add(new Message.MessageObject());
+        mData.add(new Message.MessageObject());
+        mData.add(new Message.MessageObject());
 
         mFootUpdate.init(listView, mInflater, this);
         listView.setAdapter(adapter);

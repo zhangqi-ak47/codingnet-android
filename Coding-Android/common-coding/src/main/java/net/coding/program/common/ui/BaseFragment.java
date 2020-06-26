@@ -62,6 +62,9 @@ public class BaseFragment extends UmengFragment implements NetworkCallback, Load
     private ImageLoadTool imageLoadTool = new ImageLoadTool();
     private ProgressDialog mProgressDialog;
 
+    //loading 计数
+    private int loadingCount;
+
     protected void showProgressBar(boolean show) {
         showProgressBar(show, "");
     }
@@ -195,8 +198,29 @@ public class BaseFragment extends UmengFragment implements NetworkCallback, Load
         }
     }
 
+    protected boolean isProgressCannCancel() {
+        return false;
+    }
+
     protected boolean useEventBus() {
         return false;
+    }
+
+    public void showLoadingBar() {
+        loadingCount++;
+        if (!mProgressDialog.isShowing()) {
+            mProgressDialog.setCancelable(isProgressCannCancel());
+            mProgressDialog.setCanceledOnTouchOutside(false);
+            mProgressDialog.setMessage("正在加载中...");
+            mProgressDialog.show();
+        }
+    }
+
+    public void hideLoadingBar() {
+        loadingCount--;
+        if (mProgressDialog.isShowing() && loadingCount==0) {
+            mProgressDialog.hide();
+        }
     }
 
     @Override
